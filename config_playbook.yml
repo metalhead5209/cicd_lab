@@ -1,0 +1,31 @@
+---
+- name: Base setup for lab nodes
+  hosts: all
+  become: yes
+
+
+  vars:
+    timezone: "Etc/UTC"
+    common_packages:
+      - curl
+      - git
+      - htop
+      - ufw
+
+  tasks:
+    - name: Ensure timezone is set
+      ansible.builtin.command:
+        cmd: timedatectl set-timezone {{ timezone }}
+      changed_when: false
+
+    - name: Install common packages
+      ansible.builtin.package:
+        name: "{{ common_packages }}"
+        state: present
+
+    - name: Enable and start UFW firewall
+      ansible.builtin.service:
+        name: ufw
+        state: started
+        enabled: yes      
+
