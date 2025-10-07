@@ -10,7 +10,7 @@ all:
           ansible_host: 192.168.56.11
         wk2:
           ansible_host: 192.168.56.12
-    cicd_hosts:
+    cicd_host:
       hosts:
         cicd:
           ansible_host: 192.168.56.20
