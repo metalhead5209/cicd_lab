@@ -6,16 +6,16 @@
 
   vars:
     apt_packages:
-      -curl
-      -git
-      -jq
-      -ufw
-      -apt-transport-https
-      -ca-certificates
-      -gnupg
-      -lsb-release
-      -python3
-      -python3-pip
+      - curl
+      - git
+      - jq
+      - ufw
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
+      - lsb-release
+      - python3
+      - python3-pip
     timezone_name: Etc/UTC
 
 
@@ -28,7 +28,7 @@
         update_cache: yes
         cache_valid_time: 3600
         force_apt_get: yes
-        lockout_time: 60
+        lock_timeout: 60
 
     - name: Upgrade all packages
       ansible.builtin.apt:
