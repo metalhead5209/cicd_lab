@@ -37,3 +37,23 @@
         lock_timeout: 60
 
     - name: Install required packages
+      ansible.builtin.apt:
+        name: "{{ apt_packages }}"
+        state: present
+        force_apt_get: yes
+        lock_timeout: 60
+        dpkg_options: "--force-confnew"
+
+    - name: Set system timezon (preferred)
+      community.general.timezone:
+        name: "{{ timezone_name }}"
+      ignore_errors: yes
+
+    - name: Ensure timezone via timedatectl (fallback)
+      ansible.builtin.command: "timedatectl set-timezone {{ timezone_name }}"
+      changed_when: false
+      when: ansible_facts.tz is not defined or ansible_facts.tz != timezone_name
+
+    - name: Provisioning complete (timestamp)
+      ansible.builtin.debug:
+        msg: "[{{ ansible_date_time.date }} {{ ansible_date_time.time }}] Provisioning complete."
