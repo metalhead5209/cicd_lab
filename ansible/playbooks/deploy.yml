@@ -1,0 +1,65 @@
+- name: Deploy Application to Kubernetes
+  hosts: k8s_master
+  gather_facts: false
+  vars:
+    app_name: myapp
+    namespace: default
+    registry: "192.168.56.20:5000"
+    image_tag: "{{ image_tag | default('latest') }}"
+    replicas: 2
+
+  tasks:
+    - name: Ensure namespace exists
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: "{{ namespace }}"
+
+    - name: Apply Deployment
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: "{{ app_name }}"
+            namespace: "{{ namespace }}"
+          spec:
+            replicas: {{ replicas }}
+            selector:
+              matchLabels:
+                app: "{{ app_name }}"
+            template:
+              metadata:
+                labels:
+                  app: "{{ app_name }}"
+              spec:
+                containers:
+                  - name: "{{ app_name }}"
+                    image: "{{ registry }}/{{ app_name }}:{{ image_tag }}"
+                    ports:
+                      - containerPort: 8080
+                    resources:
+                      limits:
+                        memory: "256Mi"
+                        cpu: "500m"
+                      requests:
+                        memory: "128Mi"
+                        cpu: "250m"
+                    livenesProbe:
+                      httpGet:
+                        path: /health
+                        port: 8080
+                      initialDelaySeconds: 15
+                      periodSeconds: 20
+                    readinessProbe:
+                      httpGet:
+                        path: /health
+                        port: 8080
+                      initialDelaySeconds: 5
+                      periodSeconds: 10  
+
+    - name: Apply Service
