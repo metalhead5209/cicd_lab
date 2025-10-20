@@ -1,6 +1,6 @@
 ---
 - name: Install Docker Engine on Workers
-  hosts: wk1,wk2
+  hosts: wk1,wk2,cicd
   become: yes
 
 
