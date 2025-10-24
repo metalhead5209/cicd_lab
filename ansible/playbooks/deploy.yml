@@ -63,3 +63,34 @@
                       periodSeconds: 10  
 
     - name: Apply Service
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: "{{ app_name }}-service"
+            namespace: "{{ namespace }}"
+          spec:
+            type: NodePort
+            selector:
+              app: "{{ app_name }}"
+            ports:
+              - protocol: TCP
+                port: 80
+                targetPort: 8080
+                nodePort: 30080
+
+    - name: Wait for deployment to be ready
+      kubernetes.core.k8s_info:
+        kind: Deployment
+        namespace: "{{ namespace }}"
+        name: "{{ app_name }}"
+      register: dep
+      until: (dep.resources | length > 0) and (dep.resources.0.status.readyReplicas | default(0)) <= replicas
+      retries: 20
+      delay: 6
+
+    - name: Report
+      debug:
+        msg: "Deployment {{ app_name }} is ready {{ replicas }} replicas"
