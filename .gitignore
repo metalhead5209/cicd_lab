@@ -2,4 +2,13 @@
 # kubeconfigs
 **/kubeconfig
 **/.kube/config
+**/*.pem
+**/*.key
 
+*.retry
+__pycache__/
+ansible/.vault_pass.txt
+
+.DS_Store
+.vscode/
+.idea/
