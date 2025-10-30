@@ -43,7 +43,7 @@
         force_apt_get: yes
         lock_timeout: 60
         dpkg_options: "--force-confnew"
-
+        
     - name: Set system timezon (preferred)
       community.general.timezone:
         name: "{{ timezone_name }}"

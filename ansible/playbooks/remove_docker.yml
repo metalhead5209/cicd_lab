@@ -1,0 +1,34 @@
+- name: Remove Docker engine from worker
+  hosts: wk1
+  become: yes
+  tasks:
+    - name: Stop Docker service
+      ansible.builtin.service:
+        name: docker
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+
+    - name: Remove Docker packages
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: absent
+        purge: yes
+        autoremove: yes
+        autoclean: yes
+
+    - name: Remove Docker directories and config files
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /var/lib/docker
+        - /etc/docker
+        - /etc/apt/keyrings/docker.asc 
+        - /etc/apt/sources.list.d/docker.list
+      ignore_errors: yes
