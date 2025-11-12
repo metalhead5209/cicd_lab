@@ -5,17 +5,12 @@ metadata:
   namespace: cicd-lab
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: frontend
+  selector: { matchLabels: { app: frontend } }
   template:
-    metadata:
-      labels:
-        app: frontend
+    metadata: { labels: { app: frontend } }
     spec:
       containers:
         - name: frontend
           image: 192.168.56.20:5000/frontend:latest
           imagePullPolicy: Always
-          ports:
-            - containerPort: 80
+          ports: [{ containerPort: 80 }]

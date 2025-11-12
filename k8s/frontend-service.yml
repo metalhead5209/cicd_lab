@@ -5,8 +5,7 @@ metadata:
   namespace: cicd-lab
 spec:
   type: NodePort
-  selector:
-    app: frontend
+  selector: { app: frontend }
   ports:
     - port: 80
       targetPort: 80
