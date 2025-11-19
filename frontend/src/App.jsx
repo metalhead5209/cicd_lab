@@ -24,7 +24,7 @@ useEffect(() => {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>CICD-Pipepline</h1>
+      <h1>CICD-Pipepline - deploy 2</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
