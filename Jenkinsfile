@@ -4,6 +4,7 @@ pipeline {
   environment {
     REGISTRY    = "192.168.56.20:5000"
     KUBE_CONFIG = "/home/vagrant/.kube/config"
+    IMAGE_TAG   = "${ENV.BUILD_NUMBER}"
   }
 
   stages {
@@ -17,7 +18,7 @@ pipeline {
       steps {
         dir('frontend') {
           sh """
-            docker build -t ${REGISTRY}/frontend:latest .
+            docker build -t ${REGISTRY}/frontend:latest:${IMAGE_TAG} .
           """
         }
       }
@@ -26,7 +27,7 @@ pipeline {
     stage('Push frontend image') {
       steps {
         sh """
-          docker push ${REGISTRY}/frontend:latest
+          docker push ${REGISTRY}/frontend:latest:${IMAGE_TAG}
         """
       }
     }
@@ -35,7 +36,7 @@ pipeline {
       steps {
         dir('backend') {
           sh """
-            docker build -t ${REGISTRY}/backend:latest .
+            docker build -t ${REGISTRY}/backend:latest:${IMAGE_TAG} .
           """
         }
       }
@@ -44,7 +45,7 @@ pipeline {
     stage('Push backend image') {
       steps {
         sh """
-          docker push ${REGISTRY}/backend:latest
+          docker push ${REGISTRY}/backend:latest:${IMAGE_TAG}
         """
       }
     }
