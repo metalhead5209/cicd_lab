@@ -4,7 +4,7 @@ import './App.css'
 
 
 function App() {
-  const [count, setCount] = useState(42)
+  const [count, setCount] = useState(45)
   const [health, setHealth] = useState({})
 
 useEffect(() => {
