@@ -15,7 +15,7 @@ useEffect(() => {
   return (
     <>
       <h1>CICD Pipeline</h1>
-      <h2>Pipeline test #38</h2>
+      <h2>Pipeline test #40</h2>
       <h2>By: Aaron Rodi</h2>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
