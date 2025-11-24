@@ -5,9 +5,9 @@ import '@testing-library/jest-dom';
 
 
 describe('App Component', () => {
-    it('renders Vite + React heading', () => {
+    it('CICD Pipeline', () => {
         render(<App />);
-        const headingElement = screen.getByText(/Vite \+ React/i);
+        const headingElement = screen.getByText(/CICD Pipeline/i);
         expect(headingElement).toBeInTheDocument();
     });
 })
