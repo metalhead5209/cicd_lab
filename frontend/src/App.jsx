@@ -4,7 +4,7 @@ import './App.css'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(41)
   const [health, setHealth] = useState({})
 
 useEffect(() => {
@@ -15,7 +15,7 @@ useEffect(() => {
   return (
     <>
       <h1>CICD Pipeline</h1>
-      <h2>Pipeline test #40</h2>
+      <h2>Pipeline test #{count} </h2>
       <h2>By: Aaron Rodi</h2>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
