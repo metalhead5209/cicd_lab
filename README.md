@@ -37,6 +37,7 @@ NODES = {
 
 
 ### 1.2 High-Level Flow
+<pre>
 +-------------------+     +--------------+     +-----------------------+
 |    Developer      | --> |   GitHub     | --> |      Jenkins (CI/CD)  |
 |  (local machine)  |     |    Repo      |     |  builds & pushes      |
@@ -54,8 +55,7 @@ NODES = {
                                                    | ctrl1 (master) + wk1   |
                                                    | Runs frontend/backend  |
                                                    +------------------------+
-
-
+</pre>
 
 
 ## 2. Components
@@ -146,6 +146,7 @@ http://192.168.56.11:30080
 
 ## 3. Repository Structure
 
+<pre>
 ├── ansible/
 │   ├── inventories/
 │   │   └── hosts.yml
@@ -183,6 +184,8 @@ http://192.168.56.11:30080
 │
 ├── Jenkinsfile
 └── README.md
+</pre>
+
 
 ## 4. Frontend (React + Vite)
 
