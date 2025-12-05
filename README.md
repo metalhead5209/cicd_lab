@@ -37,25 +37,26 @@ NODES = {
 
 
 ### 1.2 High-Level Flow
++-------------------+     +--------------+     +-----------------------+
+|    Developer      | --> |   GitHub     | --> |      Jenkins (CI/CD)  |
+|  (local machine)  |     |    Repo      |     |  builds & pushes      |
++-------------------+     +--------------+     +-----------+-----------+
+                                                                |
+                                                                v
+                                                   +------------+-----------+
+                                                   |    Docker Registry     |
+                                                   |   192.168.56.20:5000   |
+                                                   +------------+-----------+
+                                                                |
+                                                                v
+                                                   +------------+-----------+
+                                                   | Kubernetes Cluster     |
+                                                   | ctrl1 (master) + wk1   |
+                                                   | Runs frontend/backend  |
+                                                   +------------------------+
 
 
-+--------------------+         +-----------------+         +------------------------+
-|   Developer        |  push   |    GitHub       |  webhook|      cicd (Jenkins)    |
-|  (local machine)   +-------->+  Repo           +-------->+  builds & pushes       |
-+--------------------+         +-----------------+         +----------+-------------+
-                                                                      |
-                                                                      v
-                                                             +--------+---------+
-                                                             |  Docker Registry |
-                                                             | 192.168.56.20:5000
-                                                             +--------+---------+
-                                                                      |
-                                                                      v
-                                                        +-------------+--------------+
-                                                        |   Kubernetes Cluster       |
-                                                        |  ctrl1 (master) + wk1      |
-                                                        |  Runs frontend & backend   |
-                                                        +---------------------------+
+
 
 ## 2. Components
 
@@ -154,12 +155,14 @@ http://192.168.56.11:30080
 │   │   ├── remove_docker.yml
 │   │   └── update.yml
 │   └── ansible.cfg
+│
 ├── backend/
 │   ├── api.test.js
 │   ├── dockerfile
 │   ├── index.js
 │   ├── package-lock.json
 │   └── package.json
+│
 ├── frontend/
 │   ├── src/
 │   ├── .gitignore
@@ -170,15 +173,16 @@ http://192.168.56.11:30080
 │   ├── package-lock.json
 │   ├── package.json
 │   └── vite.config.js
+│
 ├── k8s/
 │   ├── backend-deployment.yml
 │   ├── backend-service.yml
 │   ├── frontend-deployment.yml
 │   ├── frontend-service.yml
 │   └── namespace.yml
+│
 ├── Jenkinsfile
 └── README.md
-
 
 ## 4. Frontend (React + Vite)
 
